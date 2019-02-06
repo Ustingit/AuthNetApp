@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace AuthApplication.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()
