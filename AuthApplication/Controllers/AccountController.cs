@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AuthApplication.Models;
+using System.Collections.Generic;
 
 namespace AuthApplication.Controllers
 {
@@ -134,6 +135,19 @@ namespace AuthApplication.Controllers
             }
         }
 
+        public ActionResult GetRoles()
+        {
+            IList<string> roles = new List<string> { "Роль не определена" };
+            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = userManager.FindByEmail(User.Identity.Name);
+            if (user != null)
+            {
+                roles = userManager.GetRoles(user.Id);
+            }
+
+            return View(roles);
+        }
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -155,6 +169,8 @@ namespace AuthApplication.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "user");
+                    // userManager.RemoveFromRole(user.Id, "user");  - for remove role
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
