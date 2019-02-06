@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AuthApplication.Models;
 using System.Collections.Generic;
+using System.Web.Security;
 
 namespace AuthApplication.Controllers
 {
@@ -134,7 +135,7 @@ namespace AuthApplication.Controllers
                     return View(model);
             }
         }
-
+        
         public ActionResult GetRoles()
         {
             IList<string> roles = new List<string> { "Роль не определена" };
