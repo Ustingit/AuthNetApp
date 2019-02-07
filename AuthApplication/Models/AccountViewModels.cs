@@ -71,6 +71,10 @@ namespace AuthApplication.Models
 
         [Required]
         public int Age { get; set; }
+        
+        [Display(Name="Имечко")]
+        [Required]
+        public string Name { get; set; }
 
         [Required]
         [Display(Name = "Gender")]

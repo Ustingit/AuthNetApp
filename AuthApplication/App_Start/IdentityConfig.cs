@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using AuthApplication.Models;
 using AuthApplication.Validators.Password;
+using AuthApplication.Validators.User;
 
 namespace AuthApplication
 {
@@ -45,11 +46,14 @@ namespace AuthApplication
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
+
+            manager.UserValidator = new CustomUserValidator(manager);
+            /*
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
-            };
+            };  */
 
             // Configure validation logic for passwords
             manager.PasswordValidator = new CustomPasswordValidator(6);

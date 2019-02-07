@@ -166,7 +166,7 @@ namespace AuthApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Age = model.Age, Gender = model.Gender };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Age = model.Age, Gender = model.Gender, Name = model.Name };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
