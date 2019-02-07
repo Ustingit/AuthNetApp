@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using AuthApplication.Models;
+using AuthApplication.Validators.Password;
 
 namespace AuthApplication
 {
@@ -51,6 +52,9 @@ namespace AuthApplication
             };
 
             // Configure validation logic for passwords
+            manager.PasswordValidator = new CustomPasswordValidator(6);
+
+            /*
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
@@ -58,7 +62,7 @@ namespace AuthApplication
                 RequireDigit = true,
                 RequireLowercase = true,
                 RequireUppercase = true,
-            };
+            };  */
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
