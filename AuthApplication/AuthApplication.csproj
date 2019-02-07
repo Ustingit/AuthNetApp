@@ -231,6 +231,10 @@
     <Compile Include="Migrations\201902070750030_add Name field to User.Designer.cs">
       <DependentUpon>201902070750030_add Name field to User.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902071342004_add year to User model.cs" />
+    <Compile Include="Migrations\201902071342004_add year to User model.Designer.cs">
+      <DependentUpon>201902071342004_add year to User model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbInitializer.cs" />
@@ -240,6 +244,7 @@
     <Compile Include="Models\UserControl\ApplicationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="Validators\Password\CustomPasswordValidator.cs" />
     <Compile Include="Validators\User\CustomUserValidator.cs" />
   </ItemGroup>
@@ -325,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902070750030_add Name field to User.resx">
       <DependentUpon>201902070750030_add Name field to User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902071342004_add year to User model.resx">
+      <DependentUpon>201902071342004_add year to User model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

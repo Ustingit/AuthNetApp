@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using AuthApplication.Models;
 using System.Collections.Generic;
 using System.Web.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AuthApplication.Controllers
 {
@@ -172,6 +173,13 @@ namespace AuthApplication.Controllers
                 {
                     await UserManager.AddToRoleAsync(user.Id, "user");
                     // userManager.RemoveFromRole(user.Id, "user");  - for remove role
+
+                    // создаем claim для хранения года рождения
+                    var identityClaim = new IdentityUserClaim { ClaimType = "Year", ClaimValue = model.Year.ToString() };
+                    // добавляем claim пользователю
+                    user.Claims.Add(identityClaim);
+                    await UserManager.UpdateAsync(user);
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

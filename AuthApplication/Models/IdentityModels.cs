@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Linq;
 
 namespace AuthApplication.Models
 {
@@ -20,6 +21,12 @@ namespace AuthApplication.Models
             // Add custom user claims here
             userIdentity.AddClaim(new Claim(ClaimTypes.Gender, this.Gender));
             userIdentity.AddClaim(new Claim("age", this.Age.ToString()));
+            var yearClaim = Claims.FirstOrDefault(x=>x.ClaimType == "Year");
+            if (yearClaim != null)
+            {
+                userIdentity.AddClaim(new Claim(yearClaim.ClaimType, yearClaim.ClaimValue));
+            }
+
             return userIdentity;
         }
     }

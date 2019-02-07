@@ -1,4 +1,5 @@
 ﻿using AuthApplication.Models;
+using AuthApplication.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace AuthApplication.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
+        //[ClaimsAuthorize(Age=18)]
         public ActionResult Index()
         {
             return View();
@@ -33,6 +35,7 @@ namespace AuthApplication.Controllers
             return RedirectToAction("Index");
         }
 
+        //[ClaimsAuthorize(Age = 22)]
         public ActionResult Users()
         {
             using (ApplicationContext db = new ApplicationContext())
