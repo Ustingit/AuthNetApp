@@ -173,7 +173,7 @@ namespace AuthApplication.Controllers
                     await UserManager.AddToRoleAsync(user.Id, "user");
                     // userManager.RemoveFromRole(user.Id, "user");  - for remove role
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -181,6 +181,19 @@ namespace AuthApplication.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home");
+                    /*
+                    // генерируем токен для подтверждения регистрации
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                    // создаем ссылку для подтверждения
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+                    // отправка письма
+                    await UserManager.SendEmailAsync(user.Id, "Подтверждение электронной почты",
+                       "Для завершения регистрации перейдите по ссылке:: <a href=\""
+                                                       + callbackUrl + "\">завершить регистрацию</a>");
+
+                    return View("DisplayEmail");   */
                 }
                 AddErrors(result);
             }
@@ -297,6 +310,29 @@ namespace AuthApplication.Controllers
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            /*
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindAsync(model.Email, model.Password);
+                if (user != null)
+                {
+                    if (user.EmailConfirmed == true)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Не подтвержден email.");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Неверный логин или пароль");
+                }
+            }
+
+            return View(model); */
         }
 
         //
