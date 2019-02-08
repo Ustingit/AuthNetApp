@@ -14,10 +14,34 @@ namespace AuthApplication.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
+        static List<Computer> comps = new List<Computer>();
+        static HomeController()
+        {
+            comps.Add(new Computer { Id = 1, Name = "Apple II", Company = "Apple", Year = 1977 });
+            comps.Add(new Computer { Id = 2, Name = "Macintosh", Company = "Apple", Year = 1983 });
+            comps.Add(new Computer { Id = 3, Name = "IBM PC", Company = "IBM", Year = 1981 });
+            comps.Add(new Computer { Id = 4, Name = "Altair", Company = "MITS", Year = 1975 });
+        }
+
         //[ClaimsAuthorize(Age=18)]
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Comps()
+        {
+            return View(comps);
+        }
+
+        public ActionResult CompDetail(int id)
+        {
+            Computer c = comps.FirstOrDefault(x => x.Id == id);
+            if (c!=null)
+            {
+                return PartialView(c);
+            }
+            return HttpNotFound();
         }
 
         public string GetInfo()
@@ -57,6 +81,14 @@ namespace AuthApplication.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public class Computer
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Company { get; set; }
+            public int Year { get; set; }
         }
     }
 }
