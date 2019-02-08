@@ -4,6 +4,17 @@
 }
 
 <h2>@ViewBag.Title.</h2>
+@Scripts.Render("~/bundles/myscripts")
+@Scripts.Render("~/bundles/jquery")
+<!-- add local script in case not availability CDN scrips -->
+<script type="text/javascript">
+    if(typeof jQuery == 'undefined'){
+        var e = document.createElement('script');
+        e.src = '@Url.Content("~/Scripts/jquery-1.7.1.js")';
+        e.type = 'text/javascript';
+        document.getElementsByTagName("head")[0].appendChild(e);
+    }
+</script>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
